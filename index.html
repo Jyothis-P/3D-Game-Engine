@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ECS - 3D</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        canvas {
+            background: #eee;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    
+    <canvas id="can" width="480" height="360"></canvas>
+    
+    <script>
+
+        window.ECS = {
+            Components: {},
+            systems: {},
+            entities: [],
+
+            Input: {},
+        }
+
+        ECS.$canvas = document.getElementById('can');
+        ECS.context = ECS.$canvas.getContext('2d');
+    
+    </script>
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8uEhxf9nD1/ey98U3t2vZ0qQ==" crossorigin="anonymous"></script>-->
+    <script src="scripts/three.min.js"></script>
+    <script src="scripts/Entity.js"></script>
+<!--    <script src="scripts/Components.js"></script>-->
+<!--    <script src="scripts/systems/gravity.js"></script>-->
+<!--    <script src="scripts/systems/userInput.js"></script>-->
+<!--    <script src="scripts/systems/randomMovement.js"></script>-->
+<!--    <script src="scripts/systems/render.js"></script>-->
+    <script type="module" src="scripts/game.js"></script>
+</body>
+</html>
