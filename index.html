@@ -20,8 +20,34 @@
         Camera
         <button id="camera-right">+</button>
         <button id="camera-left">-</button>
+        <br>
+        Entities
+        <select name="Entites" id="entities-select">
+            <option value="">---</option>
+        </select>
     </div>
 </body>
+<script>
+
+    window.ECS = {
+        Components: {},
+        systems: {},
+        entities: [],
+
+        Input: {},
+        world: {},
+        scene: {},
+        game: {}
+
+    }
+
+    ECS.$canvas = document.getElementById('canvas');
+
+</script>
 <script src="scripts/three.min.js"></script>
+<script type="module" src="scripts/cannon.js"></script>
+<script src="scripts/TrackballControls.js"></script>
+<script src="scripts/systems/pulsate.js"></script>
+<script type="module" src="scripts/Components.js"></script>
 <script type="module" src="scripts/index.js"></script>
 </html>

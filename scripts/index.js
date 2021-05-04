@@ -3,6 +3,10 @@ function main() {
     const canvas = document.querySelector('#canvas')
     const renderer = new THREE.WebGLRenderer({canvas});
 
+    // ECS basics.
+    let Entities = {};
+    window.Entities = Entities;
+
     // Constants
     let entityCount = 0;
     let currentEntity;
@@ -15,8 +19,11 @@ function main() {
     const downBtn = document.getElementById('down');
     const backBtn = document.getElementById('back');
     const frontBtn = document.getElementById('front');
+
     const cameraRight = document.getElementById('camera-right');
     const cameraLeft = document.getElementById('camera-left');
+
+    const entitySelect = document.getElementById('entities-select');
 
 
     // Scene
@@ -24,7 +31,7 @@ function main() {
     window.scene = scene;
 
     // Camera
-    function makeCamera(fov=40) {
+    function makeCamera(fov = 40) {
         const aspect = 2,
             near = 0.1,
             far = 1000
@@ -33,10 +40,9 @@ function main() {
 
     // Simple Camera
     const camera = makeCamera()
+    let trackball = new THREE.TrackballControls(camera)
     camera.position.set(8, 4, 10).multiplyScalar(3)
     camera.lookAt(0, 0, 0)
-
-
 
 
     // Light
@@ -44,6 +50,7 @@ function main() {
         const color = 0xFFFFFF,
             intensity = 1
         const light = new THREE.DirectionalLight(color, intensity)
+        Entities['Light1'] = {mesh: light, components: {}};
         scene.add(light)
         light.castShadow = true
         light.shadow.mapSize.width = 2048
@@ -62,13 +69,14 @@ function main() {
     {
         const light = new THREE.DirectionalLight(0xffffff, 1);
         light.position.set(1, 2, 4);
+        Entities['Light2'] = {mesh: light, components: {}};
         scene.add(light);
     }
 
     // Responsive display
     function resizeRenderer(renderer) {
         const canvas = renderer.domElement
-        const { clientWidth, clientHeight } = canvas
+        const {clientWidth, clientHeight} = canvas
 
         const pixelRatio = window.devicePixelRatio
 
@@ -84,10 +92,11 @@ function main() {
 
     // Ground
     const groundGeometry = new THREE.PlaneGeometry(50, 50)
-    const groundMaterial = new THREE.MeshPhongMaterial({ color: 0xCC8866 })
+    const groundMaterial = new THREE.MeshPhongMaterial({color: 0xCC8866})
     const groundMesh = new THREE.Mesh(groundGeometry, groundMaterial)
     groundMesh.rotation.x = Math.PI * -0.5
-    groundMesh.receiveShadow = true
+    groundMesh.receiveShadow = true;
+    Entities['Ground'] = {mesh: groundMesh, components: {}};
     scene.add(groundMesh)
 
 
@@ -111,6 +120,11 @@ function main() {
         cube.position.z = position.z;
 
         cube.name = 'Entity_' + entityCount++;
+        Entities[cube.name] = {mesh: cube, components: {}};
+        let option = document.createElement('option');
+        option.text = cube.name;
+        option.value = cube.name;
+        entitySelect.add(option);
         currentEntity = cube;
         return cube;
     }
@@ -138,7 +152,18 @@ function main() {
         currentEntity.position.z += 1;
     })
 
+    entitySelect.addEventListener('change', (event) => {
+        currentEntity = Entities[entitySelect.options[entitySelect.selectedIndex].value].mesh;
+        Entities[entitySelect.options[entitySelect.selectedIndex].value].components['pulsate'] = true;
+    })
 
+
+    for (let entityName in Entities) {
+        let option = document.createElement('option');
+        option.text = entityName;
+        option.value = entityName;
+        entitySelect.add(option);
+    }
 
     function render(time) {
         time *= 0.001
@@ -149,11 +174,15 @@ function main() {
             camera.updateProjectionMatrix()
         }
 
+        pulsate(Entities);
+
         // controls.update();
+        trackball.update();
         renderer.render(scene, camera)
 
         requestAnimationFrame(render)
     }
+
     requestAnimationFrame(render)
 }
 

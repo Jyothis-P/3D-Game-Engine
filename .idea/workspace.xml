@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="92e1fe56-314f-4444-bb57-35a2684c2afb" name="Default Changelist" comment="">
+    <list default="true" id="92e1fe56-314f-4444-bb57-35a2684c2afb" name="Default Changelist" comment="Basic dash. Can add a cube and move it around.">
+      <change afterPath="$PROJECT_DIR$/reference.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/Components.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/Entity.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/TrackballControls.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/cannon.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/cannon.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/systems/pulsate.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dash-test/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dash-test/scripts/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dash-test/scripts/three.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dash-test/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/Components.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/Entity.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/game.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/systems/gravity.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/systems/randomMovement.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/systems/render.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/systems/userInput.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,9 +21,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
-        <option value="JavaScript File" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -44,16 +41,16 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/dash-test/scripts" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/scripts" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\Github Repos\3D-Entity-Component-System\dash-test\scripts" />
-      <recent name="D:\Github Repos\3D-Entity-Component-System\dash-test" />
       <recent name="D:\Github Repos\3D-Entity-Component-System\scripts" />
       <recent name="D:\Github Repos\3D-Entity-Component-System" />
+      <recent name="D:\Github Repos\3D-Entity-Component-System\dash-test\scripts" />
+      <recent name="D:\Github Repos\3D-Entity-Component-System\dash-test" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Github Repos\3D-Entity-Component-System" />
@@ -67,11 +64,35 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1620113534466</updated>
-      <workItem from="1620113535576" duration="9380000" />
+      <workItem from="1620113535576" duration="14532000" />
+      <workItem from="1620153092161" duration="12003000" />
     </task>
+    <task id="LOCAL-00001" summary="Basic dash. Can add a cube and move it around.">
+      <created>1620139614539</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1620139614539</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Basic dash. Can add a cube and move it around." />
+    <option name="LAST_COMMIT_MESSAGE" value="Basic dash. Can add a cube and move it around." />
   </component>
 </project>
