@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="92e1fe56-314f-4444-bb57-35a2684c2afb" name="Default Changelist" comment="" />
+    <list default="true" id="92e1fe56-314f-4444-bb57-35a2684c2afb" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dash-test/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dash-test/scripts/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dash-test/scripts/three.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dash-test/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/Components.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/Entity.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/game.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/systems/gravity.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/systems/randomMovement.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/systems/render.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/systems/userInput.js" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -11,12 +25,16 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="CSS File" />
         <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1s3uL745fYtzS0wXwP2zKDBVAXC" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -26,14 +44,18 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/dash-test" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/dash-test/scripts" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Github Repos\3D-Entity-Component-System\dash-test\scripts" />
       <recent name="D:\Github Repos\3D-Entity-Component-System\dash-test" />
       <recent name="D:\Github Repos\3D-Entity-Component-System\scripts" />
+      <recent name="D:\Github Repos\3D-Entity-Component-System" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Github Repos\3D-Entity-Component-System" />
     </key>
   </component>
@@ -45,7 +67,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1620113534466</updated>
-      <workItem from="1620113535576" duration="5914000" />
+      <workItem from="1620113535576" duration="9380000" />
     </task>
     <servers />
   </component>

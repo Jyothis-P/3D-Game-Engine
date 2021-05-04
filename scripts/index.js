@@ -1,7 +1,7 @@
 function main() {
     // Base
     const canvas = document.querySelector('#canvas')
-    const renderer = new THREE.WebGLRenderer({ canvas })
+    const renderer = new THREE.WebGLRenderer({canvas});
 
     // Constants
     let entityCount = 0;
@@ -15,6 +15,8 @@ function main() {
     const downBtn = document.getElementById('down');
     const backBtn = document.getElementById('back');
     const frontBtn = document.getElementById('front');
+    const cameraRight = document.getElementById('camera-right');
+    const cameraLeft = document.getElementById('camera-left');
 
 
     // Scene
@@ -33,6 +35,9 @@ function main() {
     const camera = makeCamera()
     camera.position.set(8, 4, 10).multiplyScalar(3)
     camera.lookAt(0, 0, 0)
+
+
+
 
     // Light
     {
@@ -86,6 +91,7 @@ function main() {
     scene.add(groundMesh)
 
 
+    // Function to create a cube at origin.
     function getCube(params) {
         params = params || {};
         let width = params.width || 5;
@@ -143,6 +149,7 @@ function main() {
             camera.updateProjectionMatrix()
         }
 
+        // controls.update();
         renderer.render(scene, camera)
 
         requestAnimationFrame(render)
