@@ -66,6 +66,10 @@ Entity.prototype.select = function () {
     zElement.value = this.mesh.position.z;
     return this;
 }
+
+Entity.prototype.kick = function (magnitude, location) {
+    this.mesh.cannon_rigid_body.applyImpulse(new CANNON.Vec3(...magnitude), new CANNON.Vec3(...location))
+}
 Entity.prototype.addComponent = function (component) {
     this.components[component.name] = component;
     return this;

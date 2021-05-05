@@ -12,6 +12,7 @@ const upBtn = document.getElementById('up');
 const downBtn = document.getElementById('down');
 const backBtn = document.getElementById('back');
 const frontBtn = document.getElementById('front');
+const kickBtn = document.getElementById('kick');
 
 // Simple Camera
 const camera = makeCamera()
@@ -72,8 +73,12 @@ backBtn.addEventListener('click', (event) => {
 frontBtn.addEventListener('click', (event) => {
     currentEntity.mesh.cannon_rigid_body.position.z += 1;
 })
-playBtn.addEventListener('click', () => {
+playBtn.addEventListener('click', (event) => {
     _running = !_running;
+})
+kickBtn.addEventListener('click', (event) => {
+    let {x, y, z} = currentEntity.mesh.position;
+    currentEntity.kick([10, 0, 0], [x, y, z]);
 })
 
 
