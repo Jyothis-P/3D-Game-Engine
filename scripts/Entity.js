@@ -14,7 +14,9 @@ let Entity = function Entity(params) {
 
     let {geometry, shape} = getGeometryShape(params);
 
-    const body = new CANNON.Body({
+    this.geometry = geometry;
+
+    this.body = new CANNON.Body({
         mass: mass,
         shape: shape,
         position: new CANNON.Vec3(position.x, position.y, position.z),
@@ -25,10 +27,10 @@ let Entity = function Entity(params) {
     this.mesh.position.x = position.x;
     this.mesh.position.y = position.y;
     this.mesh.position.z = position.z;
-    this.mesh.cannon_rigid_body = body;
+    this.mesh.cannon_rigid_body = this.body;
     this.name = name;
 
-    world.add(body);
+    world.add(this.body);
     scene.add(this.mesh);
     this.addEntityToDict();
 
@@ -53,6 +55,8 @@ Entity.prototype.changeColor = function (r, g, b) {
 }
 
 Entity.prototype.select = function () {
+    if (currentEntity)
+        scene.remove(currentEntity.outlineMesh);
     currentEntity = this;
     const currentEntitySpan = document.getElementById('current-entity');
     currentEntitySpan.innerText = this.name;
@@ -64,7 +68,21 @@ Entity.prototype.select = function () {
     xElement.value = this.mesh.position.x;
     yElement.value = this.mesh.position.y;
     zElement.value = this.mesh.position.z;
+
+    this.highlight();
+
+    console.log(this.name + ' selected.');
     return this;
+}
+
+Entity.prototype.highlight = function () {
+    let outlineMaterial = new THREE.MeshBasicMaterial( { color: 0x00ff00, side: THREE.BackSide } );
+    this.outlineMesh = new THREE.Mesh(this.geometry, outlineMaterial);
+    this.outlineMesh.name = this.name + '_outline';
+    this.outlineMesh.position = this.body.position;
+    this.outlineMesh.cannon_rigid_body = this.body;
+    this.outlineMesh.scale.multiplyScalar(1.05);
+    scene.add(this.outlineMesh);
 }
 
 Entity.prototype.kick = function (magnitude, location) {

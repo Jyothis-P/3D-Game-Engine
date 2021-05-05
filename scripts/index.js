@@ -16,7 +16,7 @@ const kickBtn = document.getElementById('kick');
 
 // Simple Camera
 const camera = makeCamera()
-let trackball = new THREE.TrackballControls(camera)
+// let trackball = new THREE.TrackballControls(camera)
 
 setupLighting(scene);
 
@@ -98,7 +98,7 @@ function render() {
 
     updateMeshesWithPhysics(scene);
 
-    trackball.update();
+    // trackball.update();
     renderer.render(scene, camera)
 
     requestAnimationFrame(render)
