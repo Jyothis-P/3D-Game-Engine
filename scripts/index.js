@@ -1,189 +1,102 @@
-function main() {
-    // Base
-    const canvas = document.querySelector('#canvas')
-    const renderer = new THREE.WebGLRenderer({canvas});
+let _running = false;
+setupWorld(world);
 
-    // ECS basics.
-    let Entities = {};
-    window.Entities = Entities;
+const playBtn = document.getElementById('play');
+const addCubeBtn = document.getElementById('add-box');
+const addSphereBtn = document.getElementById('add-ball');
+const addCylinderBtn = document.getElementById('add-tube');
+const entitySelect = document.getElementById('entities-select');
+const leftBtn = document.getElementById('left');
+const rightBtn = document.getElementById('right');
+const upBtn = document.getElementById('up');
+const downBtn = document.getElementById('down');
+const backBtn = document.getElementById('back');
+const frontBtn = document.getElementById('front');
 
-    // Constants
-    let entityCount = 0;
-    let currentEntity;
+// Simple Camera
+const camera = makeCamera()
+let trackball = new THREE.TrackballControls(camera)
 
-    // Dash Controls.
-    const addCubeBtn = document.getElementById('add-box');
-    const leftBtn = document.getElementById('left');
-    const rightBtn = document.getElementById('right');
-    const upBtn = document.getElementById('up');
-    const downBtn = document.getElementById('down');
-    const backBtn = document.getElementById('back');
-    const frontBtn = document.getElementById('front');
+setupLighting(scene);
 
-    const cameraRight = document.getElementById('camera-right');
-    const cameraLeft = document.getElementById('camera-left');
-
-    const entitySelect = document.getElementById('entities-select');
-
-
-    // Scene
-    const scene = new THREE.Scene()
-    window.scene = scene;
-
-    // Camera
-    function makeCamera(fov = 40) {
-        const aspect = 2,
-            near = 0.1,
-            far = 1000
-        return new THREE.PerspectiveCamera(fov, aspect, near, far)
-    }
-
-    // Simple Camera
-    const camera = makeCamera()
-    let trackball = new THREE.TrackballControls(camera)
-    camera.position.set(8, 4, 10).multiplyScalar(3)
-    camera.lookAt(0, 0, 0)
+// Create ground.
+let ground = new Entity({
+    name: 'Ground',
+    width: 50,
+    height: .1,
+    depth: 50,
+    mass: 0,
+    color: 0xCC8866
+})
 
 
-    // Light
-    {
-        const color = 0xFFFFFF,
-            intensity = 1
-        const light = new THREE.DirectionalLight(color, intensity)
-        Entities['Light1'] = {mesh: light, components: {}};
-        scene.add(light)
-        light.castShadow = true
-        light.shadow.mapSize.width = 2048
-        light.shadow.mapSize.height = 2048
+// Dash listeners
+addCubeBtn.addEventListener('click', (event) => {
+    window.cube = new Entity({
+        type: 'box',
+        position: {x: 0, y: 20, z: 0}
+    });
+})
+addSphereBtn.addEventListener('click', (event) => {
+    window.cube = new Entity({
+        type: 'sphere',
+        position: {x: 0, y: 20, z: 0}
+    });
+})
+addCylinderBtn.addEventListener('click', (event) => {
+    window.cube = new Entity({
+        type: 'cylinder',
+        position: {x: 0, y: 20, z: 0}
+    });
+})
 
-        const d = 50
-        light.shadow.camera.left = -d
-        light.shadow.camera.right = d
-        light.shadow.camera.top = d
-        light.shadow.camera.bottom = -d
-        light.shadow.camera.near = 1
-        light.shadow.camera.far = 50
-        light.shadow.bias = 0.001
-    }
+entitySelect.addEventListener('change', (event) => {
+    entities[entitySelect.options[entitySelect.selectedIndex].value].select();
+})
 
-    {
-        const light = new THREE.DirectionalLight(0xffffff, 1);
-        light.position.set(1, 2, 4);
-        Entities['Light2'] = {mesh: light, components: {}};
-        scene.add(light);
-    }
+leftBtn.addEventListener('click', (event) => {
+    currentEntity.mesh.cannon_rigid_body.position.x -= 1;
+})
+rightBtn.addEventListener('click', (event) => {
+    currentEntity.mesh.cannon_rigid_body.position.x += 1;
+})
+upBtn.addEventListener('click', (event) => {
+    currentEntity.mesh.cannon_rigid_body.position.y += 1;
+})
+downBtn.addEventListener('click', (event) => {
+    currentEntity.mesh.cannon_rigid_body.position.y -= 1;
+})
+backBtn.addEventListener('click', (event) => {
+    currentEntity.mesh.cannon_rigid_body.position.z -= 1;
+})
+frontBtn.addEventListener('click', (event) => {
+    currentEntity.mesh.cannon_rigid_body.position.z += 1;
+})
+playBtn.addEventListener('click', () => {
+    _running = !_running;
+})
 
-    // Responsive display
-    function resizeRenderer(renderer) {
+
+function render() {
+    if (currentEntity)
+        updatePositionValues();
+
+    if (resizeRenderer(renderer)) {
         const canvas = renderer.domElement
-        const {clientWidth, clientHeight} = canvas
-
-        const pixelRatio = window.devicePixelRatio
-
-        const width = clientWidth * pixelRatio | 0
-        const height = clientHeight * pixelRatio | 0
-
-        const needResize = canvas.width !== width || canvas.height !== height
-        if (needResize) {
-            renderer.setSize(width, height, false)
-        }
-        return needResize
+        camera.aspect = canvas.clientWidth / canvas.clientHeight
+        camera.updateProjectionMatrix()
     }
 
-    // Ground
-    const groundGeometry = new THREE.PlaneGeometry(50, 50)
-    const groundMaterial = new THREE.MeshPhongMaterial({color: 0xCC8866})
-    const groundMesh = new THREE.Mesh(groundGeometry, groundMaterial)
-    groundMesh.rotation.x = Math.PI * -0.5
-    groundMesh.receiveShadow = true;
-    Entities['Ground'] = {mesh: groundMesh, components: {}};
-    scene.add(groundMesh)
 
+    if (_running)
+        world.step(1 / 60);
 
-    // Function to create a cube at origin.
-    function getCube(params) {
-        params = params || {};
-        let width = params.width || 5;
-        let height = params.height || 5;
-        let depth = params.depth || 5;
+    updateMeshesWithPhysics(scene);
 
-        let color = params.color || 0xff88aa;
-
-        let position = params.position || {x: 0, y: height / 2, z: 0};
-
-        let geometry = new THREE.BoxGeometry(width, height, depth);
-        let material = new THREE.MeshPhongMaterial({color: color});
-
-        let cube = new THREE.Mesh(geometry, material);
-        cube.position.x = position.x;
-        cube.position.y = position.y;
-        cube.position.z = position.z;
-
-        cube.name = 'Entity_' + entityCount++;
-        Entities[cube.name] = {mesh: cube, components: {}};
-        let option = document.createElement('option');
-        option.text = cube.name;
-        option.value = cube.name;
-        entitySelect.add(option);
-        currentEntity = cube;
-        return cube;
-    }
-
-    // Dash listeners
-    addCubeBtn.addEventListener('click', (event) => {
-        scene.add(getCube());
-    })
-    leftBtn.addEventListener('click', (event) => {
-        currentEntity.position.x -= 1;
-    })
-    rightBtn.addEventListener('click', (event) => {
-        currentEntity.position.x += 1;
-    })
-    upBtn.addEventListener('click', (event) => {
-        currentEntity.position.y += 1;
-    })
-    downBtn.addEventListener('click', (event) => {
-        currentEntity.position.y -= 1;
-    })
-    backBtn.addEventListener('click', (event) => {
-        currentEntity.position.z -= 1;
-    })
-    frontBtn.addEventListener('click', (event) => {
-        currentEntity.position.z += 1;
-    })
-
-    entitySelect.addEventListener('change', (event) => {
-        currentEntity = Entities[entitySelect.options[entitySelect.selectedIndex].value].mesh;
-        Entities[entitySelect.options[entitySelect.selectedIndex].value].components['pulsate'] = true;
-    })
-
-
-    for (let entityName in Entities) {
-        let option = document.createElement('option');
-        option.text = entityName;
-        option.value = entityName;
-        entitySelect.add(option);
-    }
-
-    function render(time) {
-        time *= 0.001
-
-        if (resizeRenderer(renderer)) {
-            const canvas = renderer.domElement
-            camera.aspect = canvas.clientWidth / canvas.clientHeight
-            camera.updateProjectionMatrix()
-        }
-
-        pulsate(Entities);
-
-        // controls.update();
-        trackball.update();
-        renderer.render(scene, camera)
-
-        requestAnimationFrame(render)
-    }
+    trackball.update();
+    renderer.render(scene, camera)
 
     requestAnimationFrame(render)
 }
 
-main()
+requestAnimationFrame(render)

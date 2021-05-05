@@ -9,7 +9,25 @@
 <body>
     <canvas id="canvas"></canvas>
     <div id="dash">
+        <button id="play">Play / Pause</button>
+        <br>
         <button id="add-box">Cube</button>
+        <button id="add-ball">Sphere</button>
+        <button id="add-tube">Cylinder</button>
+        <br>
+        Camera
+        <button id="camera-right">+</button>
+        <button id="camera-left">-</button>
+        <br>
+        <br>
+        Entities
+        <select name="Entities" id="entities-select">
+            <option value="">---</option>
+        </select>
+        <br>
+        <br>
+        Current Entity: <span id="current-entity"></span>
+        <br>
         <button id="left">Left</button>
         <button id="right">Right</button>
         <button id="up">Up</button>
@@ -17,37 +35,28 @@
         <button id="back">Back</button>
         <button id="front">Front</button>
         <br>
-        Camera
-        <button id="camera-right">+</button>
-        <button id="camera-left">-</button>
-        <br>
-        Entities
-        <select name="Entites" id="entities-select">
-            <option value="">---</option>
-        </select>
+        <label for="x">x</label>
+        <input type="number" id="x" name="x">
+        <label for="y">y</label>
+        <input type="number" id="y"/>
+        <label for="z">z</label>
+        <input type="number" id="z"/>
     </div>
 </body>
+<script src="scripts/three.min.js"></script>
+<script src="scripts/TrackballControls.js"></script>
+<script src="scripts/cannon.min.js"></script>
 <script>
 
-    window.ECS = {
-        Components: {},
-        systems: {},
-        entities: [],
-
-        Input: {},
-        world: {},
-        scene: {},
-        game: {}
-
-    }
-
-    ECS.$canvas = document.getElementById('canvas');
+    window.world = new CANNON.World();
+    window.scene = new THREE.Scene();
+    window.entities = {};
+    let currentEntity = false;
+    const canvas = document.querySelector('#canvas');
+    const renderer = new THREE.WebGLRenderer({canvas});
 
 </script>
-<script src="scripts/three.min.js"></script>
-<script type="module" src="scripts/cannon.js"></script>
-<script src="scripts/TrackballControls.js"></script>
-<script src="scripts/systems/pulsate.js"></script>
-<script type="module" src="scripts/Components.js"></script>
-<script type="module" src="scripts/index.js"></script>
+<script src="scripts/Entity.js"></script>
+<script src="scripts/utils.js"></script>
+<script src="scripts/index.js"></script>
 </html>
